@@ -5,8 +5,8 @@
  * Version:           1.0.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
- * License:           CC0-1.0
- * License URI:       https://creativecommons.org/publicdomain/zero/1.0/
+ * License:           GPL-3.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       family-memories
  */
 
