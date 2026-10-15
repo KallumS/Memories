@@ -21,7 +21,7 @@ function fmem_email_new_memory( $post_id ) {
 	$people  = wp_get_object_terms( $post_id, FMEM_TAXONOMY, array( 'fields' => 'names' ) );
 	$subject = sprintf(
 		/* translators: 1: site name, 2: contributor's name */
-		__( '[%1$s] New memory from %2$s', 'family-memories' ),
+		__( '[%1$s] New Memory from %2$s', 'family-memories' ),
 		$site,
 		$name
 	);
@@ -33,7 +33,7 @@ function fmem_email_new_memory( $post_id ) {
 		$name
 	);
 	$lines[] = '';
-	$lines[] = '"' . get_the_title( $post_id ) . '"';
+	$lines[] = '“' . get_the_title( $post_id ) . '”';
 	if ( $people && ! is_wp_error( $people ) ) {
 		$lines[] = __( 'About:', 'family-memories' ) . ' ' . implode( ', ', $people );
 	}
@@ -75,13 +75,13 @@ function fmem_email_contributor_on_approval( $new_status, $old_status, $post ) {
 	$site    = wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES );
 	$name    = fmem_get_meta( $post->ID, 'contributor_name' );
 	/* translators: %s: site name */
-	$subject = sprintf( __( 'Your memory is now on %s', 'family-memories' ), $site );
+	$subject = sprintf( __( 'Your Memory Is Now on %s', 'family-memories' ), $site );
 	$lines   = array(
 		/* translators: %s: contributor's name */
 		sprintf( __( 'Dear %s,', 'family-memories' ), $name ? $name : __( 'friend', 'family-memories' ) ),
 		'',
 		/* translators: %s: memory title */
-		sprintf( __( 'Thank you for sharing "%s". It has now been added and you can see it here:', 'family-memories' ), get_the_title( $post ) ),
+		sprintf( __( 'Thank you for sharing “%s”. It has now been added and you can see it here:', 'family-memories' ), get_the_title( $post ) ),
 		get_permalink( $post ),
 		'',
 		__( 'It means a great deal to us. If you have more memories, we would love to hear them too.', 'family-memories' ),

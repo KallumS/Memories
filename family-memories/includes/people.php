@@ -49,8 +49,8 @@ function fmem_portrait_picker( $portrait_id ) {
 	<div class="fmem-portrait-picker">
 		<div class="fmem-portrait-preview"><?php echo $portrait_id ? wp_get_attachment_image( $portrait_id, 'thumbnail' ) : ''; ?></div>
 		<input type="hidden" name="fmem_portrait_id" class="fmem-portrait-id" value="<?php echo esc_attr( $portrait_id ? $portrait_id : '' ); ?>">
-		<button type="button" class="button fmem-portrait-choose"><?php esc_html_e( 'Choose photo', 'family-memories' ); ?></button>
-		<button type="button" class="button-link fmem-portrait-remove" <?php echo $portrait_id ? '' : 'hidden'; ?>><?php esc_html_e( 'Remove photo', 'family-memories' ); ?></button>
+		<button type="button" class="button fmem-portrait-choose"><?php esc_html_e( 'Choose Photo…', 'family-memories' ); ?></button>
+		<button type="button" class="button-link fmem-portrait-remove" <?php echo $portrait_id ? '' : 'hidden'; ?>><?php esc_html_e( 'Remove Photo', 'family-memories' ); ?></button>
 	</div>
 	<?php
 }
@@ -83,8 +83,8 @@ function fmem_people_admin_scripts( $hook ) {
 		'fmem-portrait',
 		'fmemPortrait',
 		array(
-			'title'  => __( 'Choose a portrait photo', 'family-memories' ),
-			'button' => __( 'Use this photo', 'family-memories' ),
+			'title'  => __( 'Choose a Portrait Photo', 'family-memories' ),
+			'button' => __( 'Use This Photo', 'family-memories' ),
 		)
 	);
 }
@@ -139,7 +139,7 @@ function fmem_person_header_html( $term, $extra_class = '' ) {
 	$form_url = fmem_form_page_url( $term->slug );
 	if ( $form_url ) {
 		/* translators: %s: person's name */
-		$html .= '<p><a class="fmem-button" href="' . esc_url( $form_url ) . '">' . esc_html( sprintf( __( 'Share a memory of %s', 'family-memories' ), $term->name ) ) . '</a></p>';
+		$html .= '<p><a class="fmem-button" href="' . esc_url( $form_url ) . '">' . esc_html( sprintf( __( 'Share a Memory of %s', 'family-memories' ), $term->name ) ) . '</a></p>';
 	}
 	$html .= '</div></div>';
 	return $html;

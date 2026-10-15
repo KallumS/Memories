@@ -138,7 +138,7 @@ function fmem_single_memory_content( $content ) {
 
 	$form_url = fmem_form_page_url();
 	if ( $form_url ) {
-		$after .= '<p class="fmem-share-yours"><a class="fmem-button" href="' . esc_url( $form_url ) . '">' . esc_html__( 'Share a memory of your own', 'family-memories' ) . '</a></p>';
+		$after .= '<p class="fmem-share-yours"><a class="fmem-button" href="' . esc_url( $form_url ) . '">' . esc_html__( 'Share a Memory of Your Own', 'family-memories' ) . '</a></p>';
 	}
 
 	return '<div class="fmem-single">' . $before . $content . $after . '</div>';
@@ -172,7 +172,7 @@ function fmem_render_card( $post_id ) {
 	if ( $people ) {
 		$html .= '<p class="fmem-about">' . $people . '</p>';
 	}
-	$html .= '<a class="fmem-read-more" href="' . esc_url( $url ) . '">' . esc_html__( 'Read the full memory', 'family-memories' ) . ' &rarr;</a>';
+	$html .= '<a class="fmem-read-more" href="' . esc_url( $url ) . '">' . esc_html__( 'Read the Full Memory', 'family-memories' ) . ' &rarr;</a>';
 	$html .= '</div></article>';
 	return $html;
 }
@@ -251,7 +251,7 @@ function fmem_wall_shortcode( $atts ) {
 			<?php endif; ?>
 			<button type="submit" class="fmem-button"><?php esc_html_e( 'Search', 'family-memories' ); ?></button>
 			<?php if ( '' !== $search || ( $person && ! $locked ) ) : ?>
-				<a class="fmem-clear" href="<?php echo esc_url( $base ); ?>"><?php esc_html_e( 'Show all', 'family-memories' ); ?></a>
+				<a class="fmem-clear" href="<?php echo esc_url( $base ); ?>"><?php esc_html_e( 'Show All', 'family-memories' ); ?></a>
 			<?php endif; ?>
 		</form>
 		<?php
