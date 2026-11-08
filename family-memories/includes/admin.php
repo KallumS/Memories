@@ -41,8 +41,8 @@ function fmem_admin_menu() {
 
 	add_submenu_page(
 		'edit.php?post_type=' . FMEM_POST_TYPE,
-		__( 'Waiting for review', 'family-memories' ),
-		__( 'Waiting for review', 'family-memories' ) . ( $pending ? ' <span class="awaiting-mod"><span class="pending-count">' . number_format_i18n( $pending ) . '</span></span>' : '' ),
+		__( 'Waiting for Review', 'family-memories' ),
+		__( 'Waiting for Review', 'family-memories' ) . ( $pending ? ' <span class="awaiting-mod"><span class="pending-count">' . number_format_i18n( $pending ) . '</span></span>' : '' ),
 		'edit_others_posts',
 		'edit.php?post_status=pending&post_type=' . FMEM_POST_TYPE
 	);
@@ -101,7 +101,7 @@ function fmem_pending_notice() {
 		/* translators: %s: number of memories */
 		esc_html( sprintf( _n( '%s new memory is waiting for you to review.', '%s new memories are waiting for you to review.', $pending, 'family-memories' ), number_format_i18n( $pending ) ) ),
 		esc_url( fmem_review_url() ),
-		esc_html__( 'Review them now', 'family-memories' )
+		esc_html__( 'Review Them Now', 'family-memories' )
 	);
 }
 add_action( 'admin_notices', 'fmem_pending_notice' );
@@ -116,7 +116,7 @@ function fmem_list_columns( $columns ) {
 			$new['fmem_photo']  = __( 'Photo', 'family-memories' );
 			$new['title']       = __( 'Memory', 'family-memories' );
 			$new['fmem_story']  = __( 'Story', 'family-memories' );
-			$new['fmem_shared'] = __( 'Shared by', 'family-memories' );
+			$new['fmem_shared'] = __( 'Shared By', 'family-memories' );
 			continue;
 		}
 		$new[ $key ] = $label;
@@ -164,14 +164,14 @@ function fmem_list_column_styles() {
 add_action( 'admin_head', 'fmem_list_column_styles' );
 
 /**
- * An "Approve & publish" link under each pending memory.
+ * An "Approve & Publish" link under each pending memory.
  */
 function fmem_row_actions( $actions, $post ) {
 	if ( FMEM_POST_TYPE !== $post->post_type || 'pending' !== $post->post_status || ! current_user_can( 'publish_post', $post->ID ) ) {
 		return $actions;
 	}
 	$url     = wp_nonce_url( admin_url( 'admin-post.php?action=fmem_approve&post=' . $post->ID ), 'fmem_approve_' . $post->ID );
-	$approve = array( 'fmem_approve' => '<a class="fmem-approve" href="' . esc_url( $url ) . '">' . esc_html__( 'Approve & publish', 'family-memories' ) . '</a>' );
+	$approve = array( 'fmem_approve' => '<a class="fmem-approve" href="' . esc_url( $url ) . '">' . esc_html__( 'Approve & Publish', 'family-memories' ) . '</a>' );
 	return $approve + $actions;
 }
 add_filter( 'post_row_actions', 'fmem_row_actions', 10, 2 );
@@ -180,7 +180,7 @@ function fmem_handle_approve() {
 	$post_id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0;
 	check_admin_referer( 'fmem_approve_' . $post_id );
 	if ( ! $post_id || FMEM_POST_TYPE !== get_post_type( $post_id ) || ! current_user_can( 'publish_post', $post_id ) ) {
-		wp_die( esc_html__( 'Sorry, you are not allowed to approve this memory.', 'family-memories' ) );
+		wp_die( esc_html__( 'You don’t have permission to approve this memory. Ask the site’s administrator to approve it.', 'family-memories' ) );
 	}
 	fmem_approve_memory( $post_id );
 	wp_safe_redirect( add_query_arg( 'fmem_approved', 1, wp_get_referer() ? wp_get_referer() : fmem_review_url() ) );
@@ -188,9 +188,9 @@ function fmem_handle_approve() {
 }
 add_action( 'admin_post_fmem_approve', 'fmem_handle_approve' );
 
-/** "Approve & publish" in the Bulk actions drop-down. */
+/** "Approve & Publish" in the Bulk actions drop-down. */
 function fmem_bulk_actions( $actions ) {
-	return array( 'fmem_approve' => __( 'Approve & publish', 'family-memories' ) ) + $actions;
+	return array( 'fmem_approve' => __( 'Approve & Publish', 'family-memories' ) ) + $actions;
 }
 add_filter( 'bulk_actions-edit-' . FMEM_POST_TYPE, 'fmem_bulk_actions' );
 
@@ -223,7 +223,7 @@ add_action( 'admin_notices', 'fmem_approved_notice' );
 /* ---------- The edit screen for a single memory ---------- */
 
 function fmem_add_meta_box() {
-	add_meta_box( 'fmem-details', __( 'Who shared this memory', 'family-memories' ), 'fmem_render_meta_box', FMEM_POST_TYPE, 'normal', 'high' );
+	add_meta_box( 'fmem-details', __( 'Who Shared This Memory', 'family-memories' ), 'fmem_render_meta_box', FMEM_POST_TYPE, 'normal', 'high' );
 }
 add_action( 'add_meta_boxes', 'fmem_add_meta_box' );
 
@@ -244,14 +244,14 @@ function fmem_render_meta_box( $post ) {
 
 	$photos = array_filter( array_map( 'intval', (array) get_post_meta( $post->ID, '_fmem_photo_ids', true ) ) );
 	if ( $photos ) {
-		echo '<p><strong>' . esc_html__( 'Photos sent with this memory', 'family-memories' ) . '</strong></p><p>';
+		echo '<p><strong>' . esc_html__( 'Photos Sent with This Memory', 'family-memories' ) . '</strong></p><p>';
 		foreach ( $photos as $id ) {
 			$full = wp_get_attachment_image_url( $id, 'full' );
 			if ( $full ) {
 				echo '<a href="' . esc_url( $full ) . '" target="_blank" rel="noopener" style="margin-right:8px;display:inline-block">' . wp_get_attachment_image( $id, 'thumbnail' ) . '</a>';
 			}
 		}
-		echo '</p><p class="description">' . esc_html__( 'The first photo is the main picture (see "Featured image"). Extra photos appear below the story.', 'family-memories' ) . '</p>';
+		echo '</p><p class="description">' . esc_html__( 'The first photo is the main picture (see “Featured image”). Extra photos appear below the story.', 'family-memories' ) . '</p>';
 	}
 }
 

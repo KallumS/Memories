@@ -61,7 +61,7 @@ function fmem_validate_photos( $files ) {
 	$errors = array();
 	if ( count( $files ) > FMEM_MAX_PHOTOS ) {
 		/* translators: %d: maximum number of photos */
-		$errors[] = sprintf( __( 'Please choose no more than %d photos.', 'family-memories' ), FMEM_MAX_PHOTOS );
+		$errors[] = sprintf( __( 'Choose no more than %d photos.', 'family-memories' ), FMEM_MAX_PHOTOS );
 		return $errors;
 	}
 	$max = wp_max_upload_size();
@@ -69,18 +69,18 @@ function fmem_validate_photos( $files ) {
 		$label = esc_html( $file['name'] );
 		if ( in_array( $file['error'], array( UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE ), true ) || $file['size'] > $max ) {
 			/* translators: 1: file name, 2: size limit such as "8 MB" */
-			$errors[] = sprintf( __( '"%1$s" is too large. Each photo must be under %2$s.', 'family-memories' ), $label, size_format( $max ) );
+			$errors[] = sprintf( __( '“%1$s” is too large. Each photo must be under %2$s.', 'family-memories' ), $label, size_format( $max ) );
 			continue;
 		}
 		if ( UPLOAD_ERR_OK !== $file['error'] || ! is_uploaded_file( $file['tmp_name'] ) ) {
 			/* translators: %s: file name */
-			$errors[] = sprintf( __( 'Sorry, "%s" did not upload properly. Please try again.', 'family-memories' ), $label );
+			$errors[] = sprintf( __( '“%s” didn’t upload properly. Choose it and send the memory again.', 'family-memories' ), $label );
 			continue;
 		}
 		$check = wp_check_filetype_and_ext( $file['tmp_name'], $file['name'], fmem_allowed_photo_types() );
 		if ( empty( $check['type'] ) ) {
 			/* translators: %s: file name */
-			$errors[] = sprintf( __( '"%s" is not a photo we can use. Please choose a JPG, PNG, GIF or WebP image.', 'family-memories' ), $label );
+			$errors[] = sprintf( __( '“%s” isn’t a photo the site can use. Choose a JPG, PNG, GIF or WebP image.', 'family-memories' ), $label );
 		}
 	}
 	return $errors;
@@ -121,7 +121,7 @@ function fmem_handle_submission() {
 	if ( empty( $_POST ) ) {
 		$state['errors'][] = sprintf(
 			/* translators: %s: size limit such as "8 MB" */
-			__( 'Sorry, those photos were too large to send all at once (the limit is %s in total). Please try fewer or smaller photos.', 'family-memories' ),
+			__( 'Those photos are too large to send all at once — the limit is %s in total. Try fewer or smaller photos.', 'family-memories' ),
 			size_format( wp_max_upload_size() )
 		);
 		return;
@@ -157,18 +157,18 @@ function fmem_handle_submission() {
 
 	$errors = array();
 	if ( '' === $values['contributor_name'] ) {
-		$errors[] = __( 'Please tell us your name.', 'family-memories' );
+		$errors[] = __( 'Enter your name.', 'family-memories' );
 	}
 	if ( ! empty( $_POST['fmem_email'] ) && ! is_email( $values['contributor_email'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$errors[] = __( 'That email address doesn\'t look quite right. You can also leave it blank.', 'family-memories' );
+		$errors[] = __( 'That email address doesn’t look quite right. Check it, or leave it blank.', 'family-memories' );
 	}
 	if ( '' === $values['title'] ) {
-		$errors[] = __( 'Please give your memory a short title.', 'family-memories' );
+		$errors[] = __( 'Give your memory a short title.', 'family-memories' );
 	}
 	if ( '' === $values['story'] ) {
-		$errors[] = __( 'Please write your memory in the box.', 'family-memories' );
+		$errors[] = __( 'Write your memory in the box.', 'family-memories' );
 	} elseif ( mb_strlen( $values['story'] ) > FMEM_MAX_STORY_LENGTH ) {
-		$errors[] = __( 'Your memory is longer than we can take in one go. Please split it into two separate memories.', 'family-memories' );
+		$errors[] = __( 'Your memory is longer than the site can take in one go. Split it into two separate memories.', 'family-memories' );
 	}
 
 	$photos = fmem_collect_uploaded_photos();
@@ -177,7 +177,7 @@ function fmem_handle_submission() {
 	$rate_key = 'fmem_rate_' . md5( fmem_client_ip() );
 	$count    = (int) get_transient( $rate_key );
 	if ( $count >= FMEM_MAX_SUBMISSIONS_HR ) {
-		$errors[] = __( 'You\'ve shared a lot of memories in a short time, thank you! Please wait a little while before sending more.', 'family-memories' );
+		$errors[] = __( 'You’ve shared a lot of memories in a short time — thank you! Wait a little while before sending more.', 'family-memories' );
 	}
 
 	if ( $errors ) {
@@ -198,7 +198,7 @@ function fmem_handle_submission() {
 		true
 	);
 	if ( is_wp_error( $post_id ) ) {
-		$state['errors'][] = __( 'Sorry, something went wrong saving your memory. Please try again.', 'family-memories' );
+		$state['errors'][] = __( 'Your memory couldn’t be saved. Try sending it again.', 'family-memories' );
 		return;
 	}
 
@@ -278,9 +278,9 @@ function fmem_form_shortcode( $atts ) {
 	if ( ! empty( $_GET['memory_shared'] ) ) {
 		$s = fmem_get_settings();
 		return '<div id="memory-form" class="fmem-form fmem-thanks" role="status">'
-			. '<p class="fmem-thanks-heading">' . esc_html__( 'Thank you', 'family-memories' ) . ' &#9829;</p>'
+			. '<p class="fmem-thanks-heading">' . esc_html__( 'Thank You', 'family-memories' ) . ' &#9829;</p>'
 			. wpautop( esc_html( $s['thank_you'] ) )
-			. '<p><a class="fmem-button" href="' . esc_url( remove_query_arg( 'memory_shared' ) ) . '#memory-form">' . esc_html__( 'Share another memory', 'family-memories' ) . '</a></p>'
+			. '<p><a class="fmem-button" href="' . esc_url( remove_query_arg( 'memory_shared' ) ) . '#memory-form">' . esc_html__( 'Share Another Memory', 'family-memories' ) . '</a></p>'
 			. '</div>';
 	}
 
@@ -348,7 +348,7 @@ function fmem_form_shortcode( $atts ) {
 		</div>
 
 		<fieldset>
-			<legend><?php esc_html_e( 'About you', 'family-memories' ); ?></legend>
+			<legend><?php esc_html_e( 'About You', 'family-memories' ); ?></legend>
 			<p class="fmem-field">
 				<label for="fmem-name"><?php esc_html_e( 'Your name', 'family-memories' ); ?> <span class="fmem-required">*</span></label>
 				<input type="text" id="fmem-name" name="fmem_name" required maxlength="100" autocomplete="name" value="<?php echo esc_attr( $v['contributor_name'] ); ?>">
@@ -365,7 +365,7 @@ function fmem_form_shortcode( $atts ) {
 		</fieldset>
 
 		<fieldset>
-			<legend><?php esc_html_e( 'Your memory', 'family-memories' ); ?></legend>
+			<legend><?php esc_html_e( 'Your Memory', 'family-memories' ); ?></legend>
 			<?php if ( $people ) : ?>
 				<div class="fmem-field">
 					<span class="fmem-label"><?php esc_html_e( 'Who is this memory about?', 'family-memories' ); ?></span>
@@ -405,7 +405,7 @@ function fmem_form_shortcode( $atts ) {
 					/* translators: 1: number of photos, 2: size limit such as "8 MB" */
 					echo esc_html( sprintf( __( 'Up to %1$d photos, each under %2$s.', 'family-memories' ), FMEM_MAX_PHOTOS, size_format( wp_max_upload_size() ) ) );
 					if ( $state['errors'] && $state['values'] ) {
-						echo ' ' . esc_html__( 'If you chose photos before, please choose them again.', 'family-memories' );
+						echo ' ' . esc_html__( 'If you chose photos before, choose them again.', 'family-memories' );
 					}
 					?>
 				</span>
@@ -413,7 +413,7 @@ function fmem_form_shortcode( $atts ) {
 		</fieldset>
 
 		<p class="fmem-note"><?php esc_html_e( 'Every memory is read before it appears on the site.', 'family-memories' ); ?></p>
-		<p><button type="submit" class="fmem-button"><?php esc_html_e( 'Share this memory', 'family-memories' ); ?></button></p>
+		<p><button type="submit" class="fmem-button"><?php esc_html_e( 'Share This Memory', 'family-memories' ); ?></button></p>
 	</form>
 	<?php
 	return ob_get_clean();

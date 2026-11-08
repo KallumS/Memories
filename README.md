@@ -13,8 +13,8 @@ A WordPress plugin for a website where family and friends can share stories and 
 **What you get**
 
 - An email every time someone shares a memory, with the story included and a link to review it.
-- A **Memories → Waiting for review** list in your dashboard, with a red counter showing how many are waiting.
-- One click to **Approve & publish**, or **Trash** to delete. You can also open a memory and fix typos before approving.
+- A **Memories → Waiting for Review** list in your dashboard, with a red counter showing how many are waiting.
+- One click to **Approve & Publish**, or **Trash** to delete. You can also open a memory and fix typos before approving.
 - If the person who shared it gave an email address, they get a thank-you email with a link once you approve it. You can switch this off.
 - Built-in spam protection, so you don't have to deal with junk.
 
@@ -50,7 +50,7 @@ A new **Memories** item (with a heart icon) appears in the left-hand menu.
 2. For each person (e.g. "Dad"), fill in:
    - **Name**, as you want it to appear.
    - **Description**: a few lines about them. This becomes the introduction on their page.
-   - **Portrait photo**: click *Choose photo* and upload or pick a picture.
+   - **Portrait photo**: click *Choose Photo…* and upload or pick a picture.
 3. Click **Add a Person**.
 
 If you only add one person, the form automatically ticks them. You can add more family members at any time.
@@ -86,19 +86,19 @@ Before sharing the link, send in a test memory yourself (with a photo), check yo
 ## Reviewing memories
 
 1. When someone shares a memory, you get an email. You'll also see a red number next to **Memories** in your dashboard.
-2. Go to **Memories → Waiting for review**. Each memory shows its photo, the start of the story, and who sent it.
+2. Go to **Memories → Waiting for Review**. Each memory shows its photo, the start of the story, and who sent it.
 3. Hover over a memory's title to see its options:
-   - **Approve & publish** puts it on the site straight away.
+   - **Approve & Publish** puts it on the site straight away.
    - **Edit** opens it so you can read it in full, fix spelling, change the title, or change who it's about, then click **Publish**.
    - **Trash** removes it. Trashed memories stay in the Trash for 30 days in case you change your mind. After that, they and their photos are deleted for good.
-4. To approve several at once, tick them, choose **Approve & publish** from the *Bulk actions* menu, and click **Apply**.
+4. To approve several at once, tick them, choose **Approve & Publish** from the *Bulk actions* menu, and click **Apply**.
 
 ---
 
 ## Good to know
 
 - **Keeping the site private.** Under **Settings → Reading**, tick *"Discourage search engines from indexing this site"* so it won't show up in Google. Only people you give the link to will find it. For full privacy, some hosts (and WordPress.com) let you make the whole site private.
-- **If emails don't arrive.** Some hosting companies' emails end up in spam or aren't sent at all. Check your spam folder first. If that doesn't fix it, install the free **WP Mail SMTP** plugin, which makes email from WordPress much more reliable. You can always check **Memories → Waiting for review** yourself too.
+- **If emails don't arrive.** Some hosting companies' emails end up in spam or aren't sent at all. Check your spam folder first. If that doesn't fix it, install the free **WP Mail SMTP** plugin, which makes email from WordPress much more reliable. You can always check **Memories → Waiting for Review** yourself too.
 - **Photo sizes.** Each photo must be under your host's upload limit. The form shows the limit. Photos from phones usually work fine, and WordPress shrinks very large ones automatically.
 - **Backups.** These memories are precious. Make sure your host takes regular backups, or install a backup plugin such as **UpdraftPlus**.
 - **Removing the plugin never deletes memories.** They stay safely in your WordPress database.
@@ -117,7 +117,7 @@ Before sharing the link, send in a test memory yourself (with a photo), check yo
 | `[memory_wall search="no"]` | Hides the search box. |
 | `[family_members show_empty="no"]` | Hides people who don't have any memories yet. |
 
-Each person's page is at `yoursite.com/person/their-name/`. Their page has a "Share a memory of…" button that opens the form with them already ticked.
+Each person's page is at `yoursite.com/person/their-name/`. Their page has a “Share a Memory of…” button that opens the form with them already ticked.
 
 ---
 
